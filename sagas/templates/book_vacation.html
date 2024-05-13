@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Temporal Book Your Trip to PyCon</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f7f7f7;
+      }
+
+      h1 {
+        color: #222222;
+        text-align: center;
+        margin-top: 30px;
+      }
+      h2 {
+        color: #222222;
+        text-align: center;
+        margin-top: 30px;
+      }
+      p {
+        color: #444444;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      form {
+        margin: 0 auto;
+        width: 50%;
+        background-color: #ffffff;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      input[type="radio"] {
+        margin-top: -1px;
+        vertical-align: middle;
+      }
+
+      .form-text {
+        font-size: 18px;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+        color: #222222;
+      }
+
+
+      input[type="text"] {
+        font-size: 16px;
+        padding: 10px;
+        border: 2px solid #dddddd;
+        border-radius: 4px;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      input[type="submit"] {
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #222222;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px;
+        width: 100%;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #444444;
+      }
+
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #222222;
+        margin-top: 30px;
+      }
+
+      h3 {
+        color: blueviolet;
+      }
+
+      p {
+        font-size: 18px;
+        color: #444444;
+        margin-bottom: 10px;
+      }
+
+      .cancelled {
+        background-color: #ffe6e6;
+        border: 2px solid #ff9999;
+        padding: 10px;
+        margin-top: 20px;
+      }
+
+      .booking-result {
+        background-color: #e6ffe6;
+        border: 2px solid #99ff99;
+        padding: 10px;
+        margin-top: 20px;
+        width: 50%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        position: relative;
+      }
+      .booking-result p {
+        margin-bottom: 5px;
+      }
+
+      .booking-result .close {
+        position: absolute;
+        right: 20px;
+        display: block;
+        padding: 0.5rem;
+        background-color: #99ff99;
+        font-size: 1.5rem;
+        
+      }
+
+      .booking-failure {
+        background-color: #ffe6e6;
+        border: 2px solid #ff9999;
+        padding: 10px;
+        margin-top: 20px;
+        width: 50%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        position: relative;
+      }
+      .booking-failure p {
+        margin-bottom: 5px;
+      }
+
+      .booking-failure .close {
+        position: absolute;
+        right: 20px;
+        display: block;
+        padding: 0.5rem;
+        background-color: #ff9999;
+        font-size: 1.5rem;
+        
+      }
+
+
+
+    .radio-container {
+      display: flex;
+      flex-direction: column; /* Stacks the radio buttons vertically */
+      margin-bottom: 5px;
+    }
+
+    .radio-item {
+      display: flex;
+      align-items: center; /* Aligns the radio button and the label horizontally */
+    }
+
+    </style>
+
+  </head>
+  <body>
+    <h1>Temporal Book Your Trip to PyCon</h1>
+    <h2>GitHub: <a href="https://github.com/temporalio">github.com/temporalio</a></h2>
+    <h2>Learn More about Temporal: <a href="https://learn.temporal.io">learn.temporal.io</a></h2>
+    <p>Eliminate complex error or retry logic, avoid callbacks, and ensure that every workflow you start, completes. Temporal delivers durable execution for your services and applications.</p>
+
+    {% if cancelled %}
+    <div class="booking-failure" id="result">
+      <span class="close" id="close">&times;</span>
+      <h2>Booking Canceled</h2>
+      <p>Undoing Car Booking</p>
+      <p>Undoing Hotel Booking</p>
+      <p>Undoing Flight Booking</p>
+    </div>
+    {% endif %} {% if result %}
+      <div class="booking-result" id="result">
+        <span class="close" id="close">&times;</span>
+        <h2>Booking Result for {{ name }}</h2>
+        <p>{{ car }}</p>
+        <p>{{ hotel }}</p>
+        <p>{{ flight }}</p>
+        <p>Confirmation Number: {{ user_id }}</p>
+      </div>
+    {% endif %}
+
+    <form method="post" action="/">    
+      <label for="name" class="form-text">Name:</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        value="Your Temporal User"
+        required
+        placeholder="Your Temporal User"
+      /><br />
+      <label for="car" class="form-text">Car:</label>
+      <input
+        type="text"
+        name="car"
+        id="car"
+        value="Toyota Corolla"
+        required
+        placeholder="Toyota Corolla"
+      /><br />
+
+      <label for="hotel" class="form-text">Hotel:</label>
+      <input
+        type="text"
+        name="hotel"
+        id="hotel"
+        value="Hilton 123"
+        required
+        placeholder="Hilton 123"
+      /><br />
+
+      <label for="flight" class="form-text">Flight:</label>
+      <input
+        type="text"
+        name="flight"
+        id="flight"
+        value="Alaska Airlines 123"
+        required
+        placeholder="Alaska Airlines 123"
+      /><br />
+
+      <hr>
+      <h3>Failure Simulator</h3>
+      <label for="name">Number of Failures Before Success:</label>
+      <input
+        type="text"
+        name="attempts"
+        id="attempts"
+        value="0"
+        required
+        placeholder="Your Temporal User"
+      /><br />  
+      
+      <div class="radio-container">
+        <div class="radio-item">
+          <input type="radio" value="none" id="none" name="failure" checked>
+          <label for="none">None</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" value="car" id="car-failure" name="failure">
+          <label for="car-failure">Car Booking Failure</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" value="hotel" id="hotel-failure" name="failure">
+          <label for="hotel-failure">Hotel Booking Failure</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" value="flight" id="flight-failure" name="failure">
+          <label for="flight-failure">Flight Booking Failure</label>
+        </div>
+      </div>
+        
+      
+
+      <input type="submit" value="Book" id="book" />
+    </form>
+    <script>
+      let resultBox = document.getElementById("close");
+  
+      resultBox.addEventListener("click", function(e){
+        resultBox.parentElement.remove();
+      });
+    </script>
+  </body>
+</html>
