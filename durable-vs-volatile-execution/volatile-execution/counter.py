@@ -2,8 +2,11 @@ import asyncio
 
 
 async def main():
-    for i in range(0, 10):
-        print(i)
+    number = 1
+    limit = 10
+    while number <= limit:
+        print(number)
+        number = number + 1
         await asyncio.sleep(1)
 
 

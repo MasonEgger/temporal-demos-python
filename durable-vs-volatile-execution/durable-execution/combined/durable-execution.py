@@ -1,9 +1,19 @@
 import asyncio
+import logging
 import sys
 
 from temporalio import exceptions, workflow
 from temporalio.client import Client, WorkflowExecutionStatus
 from temporalio.worker import Worker
+
+logging.basicConfig(level=logging.INFO)
+
+workflow.logger.workflow_info_on_message = False
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(message)s",
+)
 
 
 @workflow.defn
@@ -11,7 +21,7 @@ class MyWorkflow:
     @workflow.run
     async def run(self) -> str:
         for i in range(0, 10):
-            print(i)
+            workflow.logger.info(i)
             await asyncio.sleep(1)
 
         return "Finished"
